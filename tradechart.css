@@ -1,0 +1,305 @@
+    body{
+        font-family: monospace;
+        font-size: 14px;
+        background:black;
+        color:white;
+    }
+
+    #ListViewBtn,#GridViewBtn{
+        padding: 5px;
+    }
+
+    #GridView{
+        display:none;
+    }
+
+    #Commodities, #Systems, #Locations{
+        display:flex;
+        flex-flow:wrap;
+        padding: 5px;
+    }
+
+    #Left button:hover,
+    #ListViewBtn:hover,
+    #GridViewBtn:hover{
+        background:green;
+        cursor:pointer;
+        color:white;
+    }
+
+    #Right .border{
+        position:relative;
+    }
+
+    #Back{
+        position:absolute;
+        top:15px;
+        left:15px;
+        visibility:hidden;
+    }
+
+    #Back:hover{
+        cursor:pointer;
+    }
+
+    #Left,#Right{
+        user-select: none;
+        -khtml-user-select: none;
+        -o-user-select: none;
+        -moz-user-select: -moz-none;
+        -webkit-user-select: none;
+    }
+
+    #Left{
+        width:30%;
+        display:inline-block;
+        vertical-align:top;
+        padding:5px;
+        background:black;
+    }
+
+    #Right{
+        display: inline-block;
+        vertical-align:top;
+        width:30%;
+        padding:5px;
+        text-align:center;
+        background: black;
+        color:green;
+    }
+
+    #Selected{
+        margin-top:0;
+        color:white;
+    }
+
+    #cell-info-wrapper{
+        position:fixed;
+        pointer-events:none;
+        display:flex;
+        top: 20px;
+        width:100%;
+        text-align:center;
+        justify-content: center;
+        background:transparent;
+    }
+
+    #cell-info{
+        border: 1px solid green;
+        padding: 5px;
+        background:black !important;
+        flex-shrink:1;
+        z-index: 100;
+        
+    }
+    #output ul{
+        display: inline-block;
+        vertical-align: top;
+        min-width: 150px;
+        list-style-type: none;
+        margin-top:0;
+        padding:5px;
+        margin-right:5px;
+    }
+
+    #output li.list-item:hover{
+        text-decoration:underline;
+        background:transparent;
+        cursor:pointer;
+    }
+
+    #output ul li:first-child{
+        font-weight: normal;
+        margin-bottom:3px;
+        color:white;
+    }
+
+    #output ul li:first-child:hover{
+        background:transparent;
+        cursor:auto;
+    }
+
+    #output ul li{ 
+        padding:10px;
+        text-align:left;
+        font-weight:bold;
+    }
+
+    #Navigation{
+        display:flex;
+        flex-flow:row;
+    }
+
+    table#grid thead,
+    table#grid tbody{
+        display:block;
+    }
+
+    #grid{
+        empty-cells:show;
+        border-collapse:collapse;
+        overflow-x: scroll;
+    }
+
+    #grid-table td{
+        border: 1px solid green;
+        padding: 5px;
+        position: relative;
+    }
+
+    #grid-table td:hover{
+        background-color: blue;
+        cursor: pointer;
+    }
+
+    #grid-table tr:hover{
+        background-color: darkblue;
+    }
+
+    #grid-table tr:hover .behind-text{
+        visibility:visible;
+    }
+
+    #grid-header{
+        display: flex;
+        flex-flow: row;
+    }
+
+    #grid-header .legend{
+        flex-shrink:1;
+    }
+
+    .behind-text{
+        color:lightblue;
+        visibility:hidden;
+        position:absolute;
+        top:0;
+        left:0;
+    }
+
+    .import-mark-inline,
+    .export-mark-inline{
+        margin-right: 3px;
+    }
+
+    .import-mark,.export-mark{
+        display:block;
+        width:30%;
+        /* font-size:1.3em; */
+        font-weight:bold;
+    }
+
+    .import-mark:hover,.export-mark:hover{
+        cursor:default;
+    }
+
+    .import-mark-inline:before,
+    .import-mark::before{
+        content: '\25e2';
+    }
+
+    #import-legend{
+        margin-right:5px;
+    }
+
+    .import-mark,
+    .import-mark-inline,
+    #import-legend span:first-child{
+        color:lightgreen;
+    }
+
+    .import-mark{
+        float:left;
+        text-align:right;
+    }
+
+    .export-mark,
+    .export-mark-inline,
+    #export-legend span:first-child{
+        color: darkorange;
+    }
+
+    .export-mark-inline:before,
+    .export-mark::after{
+        content:'\25e5';
+    }
+
+    .export-mark{
+        float:right;
+        text-align:left;
+        margin-left:5px;
+    }
+
+    .nav-btn{
+        flex-grow:1;
+        padding: 5px;
+        margin:0;
+        border:0;
+    }
+            
+    .nav-btn{
+        border-bottom:0 !important;
+        background:transparent;
+    }
+
+    .nav-btn:nth-child(2){
+        border-right: 1px solid green;
+        border-left: 1px solid green;
+    }
+
+    .nav-btn:hover{
+        background:green;
+        cursor:pointer;
+    }
+
+    .sub-list{
+        font-size:.9em;
+        font-style:italic;
+        padding: 0 !important;
+        padding-left: 20px !important;
+        font-weight:normal;
+    }
+
+    .system-name{
+        font-weight:bold;
+        padding:0;
+        padding-bottom: 2px !important;
+    }
+
+    .hide{
+        display:none !important;
+    }
+
+    .border{
+        border: 3px solid green;
+        padding: 15px;
+    }
+
+    button.highlight{
+        background:green;
+        color:white;
+    }
+
+    #Commodities-btn, #Systems-btn, #Locations-btn{
+        color:azure;
+    }
+    
+    #Commodities-btn:hover, #Systems-btn:hover, #Locations-btn:hover{
+        cursor:pointer;
+    }
+
+    #Commodities button, #Systems button, #Locations button{
+        display:block;
+        text-align:left;
+        margin: 4px;
+        padding: 4px;
+        font-weight:bold;
+        border:0;
+    }
+
+    #Commodities, #Systems, #Locations, .nav-btn, .decorated-btn{
+        background:black;
+        padding: 15px;
+        border: 3px solid green;
+        color: green;
+    }
