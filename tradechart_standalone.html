@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <style type="text/css">    body{
+        font-family: monospace;
+        font-size: 14px;
+        background:black;
+        color:white;
+    }
+
+    #ListViewBtn,#GridViewBtn{
+        padding: 5px;
+    }
+
+    #GridView{
+        display:none;
+    }
+
+    #Commodities, #Systems, #Locations{
+        display:flex;
+        flex-flow:wrap;
+        padding: 5px;
+    }
+
+    #Left button:hover,
+    #ListViewBtn:hover,
+    #GridViewBtn:hover{
+        background:green;
+        cursor:pointer;
+        color:white;
+    }
+
+    #Right .border{
+        position:relative;
+    }
+
+    #Back{
+        position:absolute;
+        top:15px;
+        left:15px;
+        visibility:hidden;
+    }
+
+    #Back:hover{
+        cursor:pointer;
+    }
+
+    #Left,#Right{
+        user-select: none;
+        -khtml-user-select: none;
+        -o-user-select: none;
+        -moz-user-select: -moz-none;
+        -webkit-user-select: none;
+    }
+
+    #Left{
+        width:30%;
+        display:inline-block;
+        vertical-align:top;
+        padding:5px;
+        background:black;
+    }
+
+    #Right{
+        display: inline-block;
+        vertical-align:top;
+        width:30%;
+        padding:5px;
+        text-align:center;
+        background: black;
+        color:green;
+    }
+
+    #Selected{
+        margin-top:0;
+        color:white;
+    }
+
+    #cell-info-wrapper{
+        position:fixed;
+        pointer-events:none;
+        display:flex;
+        top: 20px;
+        width:100%;
+        text-align:center;
+        justify-content: center;
+        background:transparent;
+    }
+
+    #cell-info{
+        border: 1px solid green;
+        padding: 5px;
+        background:black !important;
+        flex-shrink:1;
+        z-index: 100;
+        
+    }
+    #output ul{
+        display: inline-block;
+        vertical-align: top;
+        min-width: 150px;
+        list-style-type: none;
+        margin-top:0;
+        padding:5px;
+        margin-right:5px;
+    }
+
+    #output li.list-item:hover{
+        text-decoration:underline;
+        background:transparent;
+        cursor:pointer;
+    }
+
+    #output ul li:first-child{
+        font-weight: normal;
+        margin-bottom:3px;
+        color:white;
+    }
+
+    #output ul li:first-child:hover{
+        background:transparent;
+        cursor:auto;
+    }
+
+    #output ul li{ 
+        padding:10px;
+        text-align:left;
+        font-weight:bold;
+    }
+
+    #Navigation{
+        display:flex;
+        flex-flow:row;
+    }
+
+    table#grid thead,
+    table#grid tbody{
+        display:block;
+    }
+
+    #grid{
+        empty-cells:show;
+        border-collapse:collapse;
+        overflow-x: scroll;
+    }
+
+    #grid-table td{
+        border: 1px solid green;
+        padding: 5px;
+        position: relative;
+    }
+
+    #grid-table td:hover{
+        background-color: blue;
+        cursor: pointer;
+    }
+
+    #grid-table tr:hover{
+        background-color: darkblue;
+    }
+
+    #grid-table tr:hover .behind-text{
+        visibility:visible;
+    }
+
+    #grid-header{
+        display: flex;
+        flex-flow: row;
+    }
+
+    #grid-header .legend{
+        flex-shrink:1;
+    }
+
+    .behind-text{
+        color:lightblue;
+        visibility:hidden;
+        position:absolute;
+        top:0;
+        left:0;
+    }
+
+    .import-mark-inline,
+    .export-mark-inline{
+        margin-right: 3px;
+    }
+
+    .import-mark,.export-mark{
+        display:block;
+        width:30%;
+        /* font-size:1.3em; */
+        font-weight:bold;
+    }
+
+    .import-mark:hover,.export-mark:hover{
+        cursor:default;
+    }
+
+    .import-mark-inline:before,
+    .import-mark::before{
+        content: '\25e2';
+    }
+
+    #import-legend{
+        margin-right:5px;
+    }
+
+    .import-mark,
+    .import-mark-inline,
+    #import-legend span:first-child{
+        color:lightgreen;
+    }
+
+    .import-mark{
+        float:left;
+        text-align:right;
+    }
+
+    .export-mark,
+    .export-mark-inline,
+    #export-legend span:first-child{
+        color: darkorange;
+    }
+
+    .export-mark-inline:before,
+    .export-mark::after{
+        content:'\25e5';
+    }
+
+    .export-mark{
+        float:right;
+        text-align:left;
+        margin-left:5px;
+    }
+
+    .nav-btn{
+        flex-grow:1;
+        padding: 5px;
+        margin:0;
+        border:0;
+    }
+            
+    .nav-btn{
+        border-bottom:0 !important;
+        background:transparent;
+    }
+
+    .nav-btn:nth-child(2){
+        border-right: 1px solid green;
+        border-left: 1px solid green;
+    }
+
+    .nav-btn:hover{
+        background:green;
+        cursor:pointer;
+    }
+
+    .sub-list{
+        font-size:.9em;
+        font-style:italic;
+        padding: 0 !important;
+        padding-left: 20px !important;
+        font-weight:normal;
+    }
+
+    .system-name{
+        font-weight:bold;
+        padding:0;
+        padding-bottom: 2px !important;
+    }
+
+    .hide{
+        display:none !important;
+    }
+
+    .border{
+        border: 3px solid green;
+        padding: 15px;
+    }
+
+    button.highlight{
+        background:green;
+        color:white;
+    }
+
+    #Commodities-btn, #Systems-btn, #Locations-btn{
+        color:azure;
+    }
+    
+    #Commodities-btn:hover, #Systems-btn:hover, #Locations-btn:hover{
+        cursor:pointer;
+    }
+
+    #Commodities button, #Systems button, #Locations button{
+        display:block;
+        text-align:left;
+        margin: 4px;
+        padding: 4px;
+        font-weight:bold;
+        border:0;
+    }
+
+    #Commodities, #Systems, #Locations, .nav-btn, .decorated-btn{
+        background:black;
+        padding: 15px;
+        border: 3px solid green;
+        color: green;
+    }</style>
+    <script type="text/javascript">const Systems={"Primeval 2":{name:"Primeval 2",imports:["Brilliance","Construction","Generic Food","Grain","Iron","Liquor","Robot Workers","Space Salvage","Ultimate"],exports:["Advanced Fuels","Gems","Mining Equipment","Plastics","Plutonium","Prefabs","Uranium"],locations:["Aeolus"]},MacAlister:{name:"MacAlister",imports:["Construction","Food Dispensers","Games","Holographics","Home Appliances","Iron","Robot Workers","Slaves","Textiles","Tungsten"],exports:["Furs","Generic Food","Grain","Liquor","Luxury Food","Pets","Tobacco","Wood"],locations:["Alasdair Mor"]},"New Beijing":{name:"New Beijing",imports:["Advanced Fuels","Brilliance","Construction","Factory Equipment","Gems","Generic Food","Grain","Iron","Liquor","Medical Equipment","Mining Equipment","PlayThing(tm)","Robot Workers","Space Salvage","Tobacco","Tungsten","Ultimate","Wood"],exports:["Advanced Fuels","Communications","Computers","Food Dispensers","Gems","Home Appliances","Iron","Medical Equipment","Mining Equipment","Plastics","PlayThing(tm)","Plutonium","Prefabs","Robot Servants","Robot Workers","Software","Space Salvage","Tungsten","Uranium"],locations:["Andingmen","Guamao","New Beijing","Xidan"]},Loye:{name:"Loye",imports:["Advanced Fuels","Communications","Computers","Construction","Factory Equipment","Food Dispensers","Games","Gems","Generic Food","Grain","Holographics","Home Appliances","Iron","Liquor","Luxury Food","Medical Equipment","Movies","PlayThing(tm)","Robot Servants","Robot Workers","Textiles","Tungsten","Ultimate"],exports:["Generic Food","Grain","Liquor","Luxury Food","Pets","Textiles","Tobacco","Wood"],locations:["Basin","Loye Naval Base","Pyrdion"]},Rynkel:{name:"Rynkel",imports:["Advanced Fuels","Gems","Generic Food","Grain","Liquor","Medical Equipment","Robot Workers","Weaponry"],exports:["Brilliance","PlayThing(tm)","Plutonium","Slaves","Space Salvage","Ultimate","Uranium"],locations:["Bellamy"]},Argos:{name:"Argos",imports:["Computers","Construction","Factory Equipment","Food Dispensers","Games","Home Appliances","Iron","Robot Workers","Tungsten"],exports:["Generic Food","Grain","Liquor","Luxury Food","Pets","Textiles","Tobacco"],locations:["Bloom"]},"LV-426":{name:"LV-426",imports:["Food Dispensers","Generic Food","Grain","Holographics","Liquor","Medical Equipment","Pets","Robot Workers","Tobacco"],exports:["Brilliance","PlayThing(tm)","Plutonium","Slaves","Space Salvage","Ultimate","Uranium","Weaponry"],locations:["Bounty"]},Jovius:{name:"Jovius",imports:["Advanced Fuels","Computers","Construction","Factory Equipment","Food Dispensers","Games","Generic Food","Grain","Holographics","Iron","Liquor","Luxury Food","Medical Equipment","Mining Equipment","PlayThing(tm)","Robot Workers","Tungsten"],exports:["Gems","Generic Food","Grain","Iron","Liquor","Luxury Food","Pets","Textiles","Tobacco","Tungsten","Wood"],locations:["Callis","Euris","Ganim"]},Baranda:{name:"Baranda",imports:["Brilliance","Gems","Holographics","Home Entertainment","Liquor","Luxury Food","Movies","PlayThing(tm)","Robot Servants","Textiles","Tobacco","Ultimate"],exports:[],locations:["Chi-Chi One","Chi-Chi Two"]},Icarus:{name:"Icarus",imports:["Brilliance","Construction","Generic Food","Grain","Holographics","Liquor","Medical Equipment","Mining Equipment","Robot Workers","Space Salvage","Tobacco","Ultimate"],exports:["Advanced Fuels","Gems","Iron","Mining Equipment","Plastics","Prefabs","Tungsten"],locations:["Daedalus","Minos"]},Saturnus:{name:"Saturnus",imports:["Brilliance","Construction","Generic Food","Grain","Holographics","Iron","Liquor","Medical Equipment","Mining Equipment","PlayThing(tm)","Robot Workers","Space Salvage","Tobacco","Tungsten","Ultimate"],exports:["Advanced Fuels","Gems","Iron","Mining Equipment","Plastics","Plutonium","Prefabs","Tungsten","Uranium"],locations:["Dione","Mimas"]},Haack:{name:"Haack",imports:["Advanced Fuels","Brilliance","Communications","Computers","Construction","Generic Food","Grain","Holographics","Iron","Liquor","Medical Equipment","Mining Equipment","Robot Workers","Slaves","Space Salvage","Tobacco","Tungsten","Ultimate","Weaponry"],exports:["Advanced Fuels","Gems","Iron","Mining Equipment","Plastics","Plutonium","Prefabs","Space Salvage","Tungsten","Uranium"],locations:["Haack Naval Base","Nuk's End","Trichinas"]},Cassandra:{name:"Cassandra",imports:["Advanced Fuels","Communications","Computers","Construction","Factory Equipment","Food Dispensers","Games","Generic Food","Grain","Holographics","Home Appliances","Home Entertainment","Liquor","Mining Equipment","PlayThing(tm)","Robot Workers"],exports:["Artwork","Furs","Gems","Generic Food","Grain","Iron","Liquor","Luxury Food","Space Salvage","Textiles","Tobacco","Tungsten","Wood"],locations:["Hecuba","Priam"]},"Vortex Prime":{name:"Vortex Prime",imports:["Construction","Generic Food","Grain","Holographics","Liquor","Mining Equipment","Robot Workers","Slaves","Tobacco","Ultimate"],exports:["Gems","Iron","Space Salvage","Tungsten"],locations:["Hooper's Hope"]},Zepyranth:{name:"Zepyranth",imports:["Brilliance","Construction","Food Dispensers","Gems","Holographics","Home Appliances","Iron","Liquor","Luxury Food","Movies","PlayThing(tm)","Robot Servants","Robot Workers","Textiles","Ultimate"],exports:["Artwork","Books","Generic Food","Grain","Textiles","Tobacco","Wood"],locations:["Iridion","Tranton"]},Vichy:{name:"Vichy",imports:["Computers","Construction","Factory Equipment","Food Dispensers","Games","Holographics","Home Appliances","Iron","Robot Workers","Slaves","Tungsten","Weaponry"],exports:["Furs","Generic Food","Grain","Liquor","Luxury Food","Pets","Textiles","Tobacco","Wood"],locations:["Manurhin","Sediver"]},"TC-101":{name:"TC-101",imports:["Advanced Fuels","Food Dispensers","Generic Food","Grain","Holographics","Liquor","Medical Equipment","Robot Workers"],exports:["PlayThing(tm)","Plutonium","Slaves","Space Salvage","Ultimate","Uranium","Weaponry"],locations:["Munroe"]},"New Frankfurt":{name:"New Frankfurt",imports:["Artwork","Communications","Computers","Construction","Factory Equipment","Gems","Generic Food","Grain","Holographics","Iron","Liquor","Luxury Food","Robot Workers","Software","Space Salvage","Tungsten","Wood"],exports:["Advanced Fuels","Computers","Games","Gems","Holographics","Home Appliances","Home Entertainment","Mining Equipment","Movies","Plastics","PlayThing(tm)","Plutonium","Prefabs","Space Salvage","Textiles","Uranium"],locations:["New Frankfurt","Planck"]},Mendeleev:{name:"Mendeleev",imports:["Computers","Construction","Generic Food","Grain","Holographics","Iron","Liquor","Mining Equipment","Pets","PlayThing(tm)","Robot Workers","Space Salvage","Tungsten"],exports:["Advanced Fuels","Gems","Iron","Mining Equipment","Plastics","Plutonium","Prefabs","Space Salvage","Tungsten","Uranium"],locations:["Novy Norilsk","Ragozin","Slavneft"]},"Primeval 1":{name:"Primeval 1",imports:["Construction","Grain","Holographics","Liquor","Medical Equipment","Mining Equipment","PlayThing(tm)","Robot Workers","Tobacco","Ultimate"],exports:["Gems","Iron","Tungsten"],locations:["Sisyphus"]},Cheops:{name:"Cheops",imports:["Construction","Generic Food","Grain","Holographics","Liquor","Medical Equipment","Mining Equipment","PlayThing(tm)","Robot Workers","Tobacco"],exports:["Gems","Iron","Tungsten"],locations:["Sneferu"]},Sturm:{name:"Sturm",imports:["Construction","Generic Food","Grain","Holographics","Liquor","Medical Equipment","Mining Equipment","PlayThing(tm)","Robot Workers","Tobacco"],exports:["Gems","Iron","Plutonium","Tungsten","Uranium"],locations:["Stille"]},"Plexus Minor":{name:"Plexus Minor",imports:["Brilliance","Construction","Generic Food","Grain","Iron","Liquor","Robot Workers","Space Salvage","Tungsten","Ultimate"],exports:["Advanced Fuels","Gems","Mining Equipment","Plastics","Plutonium","Prefabs","Uranium"],locations:["Totem"]}},Locations={Aeolus:{name:"Aeolus",system:"Primeval 2",imports:["Brilliance","Construction","Generic Food","Grain","Iron","Liquor","Robot Workers","Space Salvage","Ultimate"],exports:["Advanced Fuels","Gems","Mining Equipment","Plastics","Plutonium","Prefabs","Uranium"],locations:[]},"Alasdair Mor":{name:"Alasdair Mor",system:"MacAlister",imports:["Construction","Food Dispensers","Games","Holographics","Home Appliances","Iron","Robot Workers","Slaves","Textiles","Tungsten"],exports:["Furs","Generic Food","Grain","Liquor","Luxury Food","Pets","Tobacco","Wood"],locations:[]},Andingmen:{name:"Andingmen",system:"New Beijing",imports:["Construction","Generic Food","Grain","Liquor","Medical Equipment","Mining Equipment","PlayThing(tm)","Robot Workers","Tobacco"],exports:["Gems","Iron","Tungsten"],locations:[]},Basin:{name:"Basin",system:"Loye",imports:["Computers","Construction","Factory Equipment","Food Dispensers","Games","Home Appliances","Iron","Robot Workers","Tungsten"],exports:["Generic Food","Grain","Liquor","Luxury Food","Pets","Textiles","Tobacco","Wood"],locations:[]},Bellamy:{name:"Bellamy",system:"Rynkel",imports:["Advanced Fuels","Gems","Generic Food","Grain","Liquor","Medical Equipment","Robot Workers","Weaponry"],exports:["Brilliance","PlayThing(tm)","Plutonium","Slaves","Space Salvage","Ultimate","Uranium"],locations:[]},Bloom:{name:"Bloom",system:"Argos",imports:["Computers","Construction","Factory Equipment","Food Dispensers","Games","Home Appliances","Iron","Robot Workers","Tungsten"],exports:["Generic Food","Grain","Liquor","Luxury Food","Pets","Textiles","Tobacco"],locations:[]},Bounty:{name:"Bounty",system:"LV-426",imports:["Food Dispensers","Generic Food","Grain","Holographics","Liquor","Medical Equipment","Pets","Robot Workers","Tobacco"],exports:["Brilliance","PlayThing(tm)","Plutonium","Slaves","Space Salvage","Ultimate","Uranium","Weaponry"],locations:[]},Callis:{name:"Callis",system:"Jovius",imports:["Construction","Factory Equipment","Generic Food","Grain","Holographics","Liquor","Medical Equipment","Mining Equipment","PlayThing(tm)","Robot Workers"],exports:["Gems","Iron","Tungsten"],locations:[]},"Chi-Chi One":{name:"Chi-Chi One",system:"Baranda",imports:["Gems","Holographics","Home Entertainment","Liquor","Luxury Food","Movies","PlayThing(tm)","Robot Servants","Textiles","Tobacco"],exports:[],locations:[]},"Chi-Chi Two":{name:"Chi-Chi Two",system:"Baranda",imports:["Brilliance","Gems","Holographics","Home Entertainment","Luxury Food","Movies","PlayThing(tm)","Robot Servants","Textiles","Tobacco","Ultimate"],exports:[],locations:[]},Daedalus:{name:"Daedalus",system:"Icarus",imports:["Construction","Generic Food","Grain","Liquor","Robot Workers","Space Salvage","Ultimate"],exports:["Advanced Fuels","Gems","Mining Equipment","Plastics","Prefabs"],locations:[]},Dione:{name:"Dione",system:"Saturnus",imports:["Brilliance","Construction","Generic Food","Grain","Iron","Liquor","Robot Workers","Space Salvage","Tungsten","Ultimate"],exports:["Advanced Fuels","Gems","Mining Equipment","Plastics","Plutonium","Prefabs","Uranium"],locations:[]},Euris:{name:"Euris",system:"Jovius",imports:["Computers","Construction","Factory Equipment","Food Dispensers","Games","Iron","Robot Workers","Tungsten"],exports:["Generic Food","Grain","Liquor","Luxury Food","Pets","Textiles","Tobacco","Wood"],locations:[]},Ganim:{name:"Ganim",system:"Jovius",imports:["Advanced Fuels","Construction","Food Dispensers","Generic Food","Grain","Iron","Luxury Food","Robot Workers","Tungsten"],exports:["Textiles"],locations:[]},Guamao:{name:"Guamao",system:"New Beijing",imports:["Construction","Generic Food","Grain","Liquor","Medical Equipment","Mining Equipment","PlayThing(tm)","Robot Workers","Tobacco"],exports:["Gems","Iron","Space Salvage","Tungsten"],locations:[]},"Haack Naval Base":{name:"Haack Naval Base",system:"Haack",imports:["Advanced Fuels","Communications","Computers","Construction","Generic Food","Grain","Iron","Medical Equipment","Tungsten","Weaponry"],exports:[],locations:[]},Hecuba:{name:"Hecuba",system:"Cassandra",imports:["Communications","Computers","Construction","Factory Equipment","Food Dispensers","Games","Home Appliances","Home Entertainment","Robot Workers"],exports:["Artwork","Furs","Generic Food","Grain","Liquor","Luxury Food","Textiles","Tobacco","Tungsten","Wood"],locations:[]},"Hooper's Hope":{name:"Hooper's Hope",system:"Vortex Prime",imports:["Construction","Generic Food","Grain","Holographics","Liquor","Mining Equipment","Robot Workers","Slaves","Tobacco","Ultimate"],exports:["Gems","Iron","Space Salvage","Tungsten"],locations:[]},Iridion:{name:"Iridion",system:"Zepyranth",imports:["Brilliance","Gems","Holographics","Liquor","Luxury Food","Movies","PlayThing(tm)","Robot Servants","Textiles","Ultimate"],exports:[],locations:[]},"Loye Naval Base":{name:"Loye Naval Base",system:"Loye",imports:["Advanced Fuels","Communications","Computers","Construction","Generic Food","Grain","Iron","Medical Equipment","Robot Workers","Tungsten"],exports:[],locations:[]},Manurhin:{name:"Manurhin",system:"Vichy",imports:["Construction","Food Dispensers","Games","Holographics","Home Appliances","Iron","Robot Workers","Slaves","Tungsten","Weaponry"],exports:["Furs","Generic Food","Grain","Liquor","Luxury Food","Pets","Textiles","Tobacco","Wood"],locations:[]},Mimas:{name:"Mimas",system:"Saturnus",imports:["Construction","Generic Food","Grain","Holographics","Liquor","Medical Equipment","Mining Equipment","PlayThing(tm)","Robot Workers","Tobacco"],exports:["Gems","Iron","Tungsten"],locations:[]},Minos:{name:"Minos",system:"Icarus",imports:["Brilliance","Construction","Grain","Holographics","Liquor","Medical Equipment","Mining Equipment","Robot Workers","Tobacco","Ultimate"],exports:["Gems","Iron","Tungsten"],locations:[]},Munroe:{name:"Munroe",system:"TC-101",imports:["Advanced Fuels","Food Dispensers","Generic Food","Grain","Holographics","Liquor","Medical Equipment","Robot Workers"],exports:["PlayThing(tm)","Plutonium","Slaves","Space Salvage","Ultimate","Uranium","Weaponry"],locations:[]},"New Beijing":{name:"New Beijing",system:"New Beijing",imports:["Advanced Fuels","Construction","Factory Equipment","Gems","Generic Food","Grain","Iron","Liquor","Tungsten","Wood"],exports:["Communications","Computers","Food Dispensers","Home Appliances","Medical Equipment","Mining Equipment","PlayThing(tm)","Robot Servants","Robot Workers","Software"],locations:[]},"New Frankfurt":{name:"New Frankfurt",system:"New Frankfurt",imports:["Artwork","Communications","Factory Equipment","Gems","Generic Food","Grain","Iron","Luxury Food","Software","Wood"],exports:["Computers","Games","Holographics","Home Appliances","Home Entertainment","Movies","PlayThing(tm)","Prefabs","Space Salvage","Textiles"],locations:[]},"Novy Norilsk":{name:"Novy Norilsk",system:"Mendeleev",imports:["Computers","Construction","Generic Food","Grain","Holographics","Liquor","Mining Equipment","Pets","PlayThing(tm)","Robot Workers"],exports:["Gems","Iron","Space Salvage","Tungsten"],locations:[]},"Nuk's End":{name:"Nuk's End",system:"Haack",imports:["Construction","Generic Food","Grain","Holographics","Liquor","Mining Equipment","Robot Workers","Slaves","Tobacco","Ultimate"],exports:["Gems","Iron","Space Salvage","Tungsten"],locations:[]},Planck:{name:"Planck",system:"New Frankfurt",imports:["Computers","Construction","Generic Food","Grain","Holographics","Iron","Liquor","Robot Workers","Space Salvage","Tungsten"],exports:["Advanced Fuels","Gems","Mining Equipment","Plastics","Plutonium","Prefabs","Uranium"],locations:[]},Priam:{name:"Priam",system:"Cassandra",imports:["Advanced Fuels","Computers","Construction","Generic Food","Grain","Holographics","Liquor","Mining Equipment","PlayThing(tm)","Robot Workers"],exports:["Gems","Iron","Space Salvage","Tungsten"],locations:[]},Pyrdion:{name:"Pyrdion",system:"Loye",imports:["Gems","Holographics","Liquor","Luxury Food","Movies","PlayThing(tm)","Robot Servants","Textiles","Ultimate"],exports:[],locations:[]},Ragozin:{name:"Ragozin",system:"Mendeleev",imports:["Computers","Construction","Generic Food","Grain","Holographics","Iron","Liquor","Robot Workers","Space Salvage","Tungsten"],exports:["Advanced Fuels","Gems","Mining Equipment","Plastics","Plutonium","Prefabs","Uranium"],locations:[]},Sediver:{name:"Sediver",system:"Vichy",imports:["Computers","Construction","Factory Equipment","Food Dispensers","Games","Holographics","Home Appliances","Iron","Robot Workers","Tungsten"],exports:["Furs","Generic Food","Grain","Liquor","Luxury Food","Pets","Textiles","Wood"],locations:[]},Sisyphus:{name:"Sisyphus",system:"Primeval 1",imports:["Construction","Grain","Holographics","Liquor","Medical Equipment","Mining Equipment","PlayThing(tm)","Robot Workers","Tobacco","Ultimate"],exports:["Gems","Iron","Tungsten"],locations:[]},Slavneft:{name:"Slavneft",system:"Mendeleev",imports:["Computers","Construction","Generic Food","Grain","Holographics","Iron","Liquor","Robot Workers","Space Salvage","Tungsten"],exports:["Advanced Fuels","Gems","Mining Equipment","Plastics","Plutonium","Prefabs","Uranium"],locations:[]},Sneferu:{name:"Sneferu",system:"Cheops",imports:["Construction","Generic Food","Grain","Holographics","Liquor","Medical Equipment","Mining Equipment","PlayThing(tm)","Robot Workers","Tobacco"],exports:["Gems","Iron","Tungsten"],locations:[]},Stille:{name:"Stille",system:"Sturm",imports:["Construction","Generic Food","Grain","Holographics","Liquor","Medical Equipment","Mining Equipment","PlayThing(tm)","Robot Workers","Tobacco"],exports:["Gems","Iron","Plutonium","Tungsten","Uranium"],locations:[]},Totem:{name:"Totem",system:"Plexus Minor",imports:["Brilliance","Construction","Generic Food","Grain","Iron","Liquor","Robot Workers","Space Salvage","Tungsten","Ultimate"],exports:["Advanced Fuels","Gems","Mining Equipment","Plastics","Plutonium","Prefabs","Uranium"],locations:[]},Tranton:{name:"Tranton",system:"Zepyranth",imports:["Brilliance","Construction","Food Dispensers","Home Appliances","Iron","Robot Workers","Ultimate"],exports:["Artwork","Books","Generic Food","Grain","Textiles","Tobacco","Wood"],locations:[]},Trichinas:{name:"Trichinas",system:"Haack",imports:["Brilliance","Construction","Generic Food","Grain","Iron","Liquor","Robot Workers","Space Salvage","Tungsten","Ultimate"],exports:["Advanced Fuels","Gems","Mining Equipment","Plastics","Plutonium","Prefabs","Uranium"],locations:[]},Xidan:{name:"Xidan",system:"New Beijing",imports:["Brilliance","Construction","Generic Food","Grain","Iron","Liquor","Robot Workers","Space Salvage","Tungsten","Ultimate"],exports:["Advanced Fuels","Gems","Mining Equipment","Plastics","Plutonium","Prefabs","Uranium"],locations:[]}},Commodities={Grain:{name:"Grain",exportingSystems:["Argos","Cassandra","Jovius","Loye","MacAlister","Vichy","Zepyranth"],importingSystems:["Cassandra","Cheops","Haack","Icarus","Jovius","LV-426","Loye","Mendeleev","New Beijing","New Frankfurt","Plexus Minor","Primeval 1","Primeval 2","Rynkel","Saturnus","Sturm","TC-101","Vortex Prime"]},"Generic Food":{name:"Generic Food",exportingSystems:["Argos","Cassandra","Jovius","Loye","MacAlister","Vichy","Zepyranth"],importingSystems:["Cassandra","Cheops","Haack","Icarus","Jovius","LV-426","Loye","Mendeleev","New Beijing","New Frankfurt","Plexus Minor","Primeval 2","Rynkel","Saturnus","Sturm","TC-101","Vortex Prime"]},Liquor:{name:"Liquor",exportingSystems:["Argos","Cassandra","Jovius","Loye","MacAlister","Vichy"],importingSystems:["Baranda","Cassandra","Cheops","Haack","Icarus","Jovius","LV-426","Loye","Mendeleev","New Beijing","New Frankfurt","Plexus Minor","Primeval 1","Primeval 2","Rynkel","Saturnus","Sturm","TC-101","Vortex Prime","Zepyranth"]},Iron:{name:"Iron",exportingSystems:["Cassandra","Cheops","Haack","Icarus","Jovius","Mendeleev","New Beijing","Primeval 1","Saturnus","Sturm","Vortex Prime"],importingSystems:["Argos","Haack","Jovius","Loye","MacAlister","Mendeleev","New Beijing","New Frankfurt","Plexus Minor","Primeval 2","Saturnus","Vichy","Zepyranth"]},Construction:{name:"Construction",exportingSystems:[],importingSystems:["Argos","Cassandra","Cheops","Haack","Icarus","Jovius","Loye","MacAlister","Mendeleev","New Beijing","New Frankfurt","Plexus Minor","Primeval 1","Primeval 2","Saturnus","Sturm","Vichy","Vortex Prime","Zepyranth"]},"Robot Workers":{name:"Robot Workers",exportingSystems:["New Beijing"],importingSystems:["Argos","Cassandra","Cheops","Haack","Icarus","Jovius","LV-426","Loye","MacAlister","Mendeleev","New Beijing","New Frankfurt","Plexus Minor","Primeval 1","Primeval 2","Rynkel","Saturnus","Sturm","TC-101","Vichy","Vortex Prime","Zepyranth"]},"Space Salvage":{name:"Space Salvage",exportingSystems:["Cassandra","Haack","LV-426","Mendeleev","New Beijing","New Frankfurt","Rynkel","TC-101","Vortex Prime"],importingSystems:["Haack","Icarus","Mendeleev","New Beijing","New Frankfurt","Plexus Minor","Primeval 2","Saturnus"]},Brilliance:{name:"Brilliance",exportingSystems:["LV-426","Rynkel"],importingSystems:["Baranda","Haack","Icarus","New Beijing","Plexus Minor","Primeval 2","Saturnus","Zepyranth"]},Ultimate:{name:"Ultimate",exportingSystems:["LV-426","Rynkel","TC-101"],importingSystems:["Baranda","Haack","Icarus","Loye","New Beijing","Plexus Minor","Primeval 1","Primeval 2","Saturnus","Vortex Prime","Zepyranth"]},Tungsten:{name:"Tungsten",exportingSystems:["Cassandra","Cheops","Haack","Icarus","Jovius","Mendeleev","New Beijing","Primeval 1","Saturnus","Sturm","Vortex Prime"],importingSystems:["Argos","Haack","Jovius","Loye","MacAlister","Mendeleev","New Beijing","New Frankfurt","Plexus Minor","Saturnus","Vichy"]},Games:{name:"Games",exportingSystems:["New Frankfurt"],importingSystems:["Argos","Cassandra","Jovius","Loye","MacAlister","Vichy"]},"Food Dispensers":{name:"Food Dispensers",exportingSystems:["New Beijing"],importingSystems:["Argos","Cassandra","Jovius","LV-426","Loye","MacAlister","TC-101","Vichy","Zepyranth"]},Holographics:{name:"Holographics",exportingSystems:["New Frankfurt"],importingSystems:["Baranda","Cassandra","Cheops","Haack","Icarus","Jovius","LV-426","Loye","MacAlister","Mendeleev","New Frankfurt","Primeval 1","Saturnus","Sturm","TC-101","Vichy","Vortex Prime","Zepyranth"]},"Home Appliances":{name:"Home Appliances",exportingSystems:["New Beijing","New Frankfurt"],importingSystems:["Argos","Cassandra","Loye","MacAlister","Vichy","Zepyranth"]},Textiles:{name:"Textiles",exportingSystems:["Argos","Cassandra","Jovius","Loye","New Frankfurt","Vichy","Zepyranth"],importingSystems:["Baranda","Loye","MacAlister","Zepyranth"]},Slaves:{name:"Slaves",exportingSystems:["LV-426","Rynkel","TC-101"],importingSystems:["Haack","MacAlister","Vichy","Vortex Prime"]},"Medical Equipment":{name:"Medical Equipment",exportingSystems:["New Beijing"],importingSystems:["Cheops","Haack","Icarus","Jovius","LV-426","Loye","New Beijing","Primeval 1","Rynkel","Saturnus","Sturm","TC-101"]},"Mining Equipment":{name:"Mining Equipment",exportingSystems:["Haack","Icarus","Mendeleev","New Beijing","New Frankfurt","Plexus Minor","Primeval 2","Saturnus"],importingSystems:["Cassandra","Cheops","Haack","Icarus","Jovius","Mendeleev","New Beijing","Primeval 1","Saturnus","Sturm","Vortex Prime"]},"PlayThing(tm)":{name:"PlayThing(tm)",exportingSystems:["LV-426","New Beijing","New Frankfurt","Rynkel","TC-101"],importingSystems:["Baranda","Cassandra","Cheops","Jovius","Loye","Mendeleev","New Beijing","Primeval 1","Saturnus","Sturm","Zepyranth"]},Tobacco:{name:"Tobacco",exportingSystems:["Argos","Cassandra","Jovius","Loye","MacAlister","Vichy","Zepyranth"],importingSystems:["Baranda","Cheops","Haack","Icarus","LV-426","New Beijing","Primeval 1","Saturnus","Sturm","Vortex Prime"]},Computers:{name:"Computers",exportingSystems:["New Beijing","New Frankfurt"],importingSystems:["Argos","Cassandra","Haack","Jovius","Loye","Mendeleev","New Frankfurt","Vichy"]},"Factory Equipment":{name:"Factory Equipment",exportingSystems:[],importingSystems:["Argos","Cassandra","Jovius","Loye","New Beijing","New Frankfurt","Vichy"]},Gems:{name:"Gems",exportingSystems:["Cassandra","Cheops","Haack","Icarus","Jovius","Mendeleev","New Beijing","New Frankfurt","Plexus Minor","Primeval 1","Primeval 2","Saturnus","Sturm","Vortex Prime"],importingSystems:["Baranda","Loye","New Beijing","New Frankfurt","Rynkel","Zepyranth"]},"Advanced Fuels":{name:"Advanced Fuels",exportingSystems:["Haack","Icarus","Mendeleev","New Beijing","New Frankfurt","Plexus Minor","Primeval 2","Saturnus"],importingSystems:["Cassandra","Haack","Jovius","Loye","New Beijing","Rynkel","TC-101"]},Weaponry:{name:"Weaponry",exportingSystems:["LV-426","TC-101"],importingSystems:["Haack","Rynkel","Vichy"]},Pets:{name:"Pets",exportingSystems:["Argos","Jovius","Loye","MacAlister","Vichy"],importingSystems:["LV-426","Mendeleev"]},"Luxury Food":{name:"Luxury Food",exportingSystems:["Argos","Cassandra","Jovius","Loye","MacAlister","Vichy"],importingSystems:["Baranda","Jovius","Loye","New Frankfurt","Zepyranth"]},Movies:{name:"Movies",exportingSystems:["New Frankfurt"],importingSystems:["Baranda","Loye","Zepyranth"]},"Home Entertainment":{name:"Home Entertainment",exportingSystems:["New Frankfurt"],importingSystems:["Baranda","Cassandra"]},"Robot Servants":{name:"Robot Servants",exportingSystems:["New Beijing"],importingSystems:["Baranda","Loye","Zepyranth"]},Communications:{name:"Communications",exportingSystems:["New Beijing"],importingSystems:["Cassandra","Haack","Loye","New Frankfurt"]},Wood:{name:"Wood",exportingSystems:["Cassandra","Jovius","Loye","MacAlister","Vichy","Zepyranth"],importingSystems:["New Beijing","New Frankfurt"]},Artwork:{name:"Artwork",exportingSystems:["Cassandra","Zepyranth"],importingSystems:["New Frankfurt"]},Software:{name:"Software",exportingSystems:["New Beijing"],importingSystems:["New Frankfurt"]},Plutonium:{name:"Plutonium",exportingSystems:["Haack","LV-426","Mendeleev","New Beijing","New Frankfurt","Plexus Minor","Primeval 2","Rynkel","Saturnus","Sturm","TC-101"],importingSystems:[]},Uranium:{name:"Uranium",exportingSystems:["Haack","LV-426","Mendeleev","New Beijing","New Frankfurt","Plexus Minor","Primeval 2","Rynkel","Saturnus","Sturm","TC-101"],importingSystems:[]},Plastics:{name:"Plastics",exportingSystems:["Haack","Icarus","Mendeleev","New Beijing","New Frankfurt","Plexus Minor","Primeval 2","Saturnus"],importingSystems:[]},Prefabs:{name:"Prefabs",exportingSystems:["Haack","Icarus","Mendeleev","New Beijing","New Frankfurt","Plexus Minor","Primeval 2","Saturnus"],importingSystems:[]},Furs:{name:"Furs",exportingSystems:["Cassandra","MacAlister","Vichy"],importingSystems:[]},Books:{name:"Books",exportingSystems:["Zepyranth"],importingSystems:[]}},SystemList=["Argos","Baranda","Cassandra","Cheops","Haack","Icarus","Jovius","LV-426","Loye","MacAlister","Mendeleev","New Beijing","New Frankfurt","Plexus Minor","Primeval 1","Primeval 2","Rynkel","Saturnus","Sturm","TC-101","Vichy","Vortex Prime","Zepyranth"],LocationList=["Aeolus","Alasdair Mor","Andingmen","Basin","Bellamy","Bloom","Bounty","Callis","Chi-Chi One","Chi-Chi Two","Daedalus","Dione","Euris","Ganim","Guamao","Haack Naval Base","Hecuba","Hooper's Hope","Iridion","Loye Naval Base","Manurhin","Mimas","Minos","Munroe","New Beijing","New Frankfurt","Novy Norilsk","Nuk's End","Planck","Priam","Pyrdion","Ragozin","Sediver","Sisyphus","Slavneft","Sneferu","Stille","Totem","Tranton","Trichinas","Xidan"],CommodityList=["Advanced Fuels","Artwork","Books","Brilliance","Communications","Computers","Construction","Factory Equipment","Food Dispensers","Furs","Games","Gems","Generic Food","Grain","Holographics","Home Appliances","Home Entertainment","Iron","Liquor","Luxury Food","Medical Equipment","Mining Equipment","Movies","Pets","Plastics","PlayThing(tm)","Plutonium","Prefabs","Robot Servants","Robot Workers","Slaves","Software","Space Salvage","Textiles","Tobacco","Tungsten","Ultimate","Uranium","Weaponry","Wood"]; var highlighted=null,views=[],current_view=null;const CSS_CLASSES={systemname:"system-name",commoditylist:"commodity-list",commodity:"commodity-lightondark",sublist:"sub-list",highlight:"highlight",panel_item:"panel-item",list_item:"list-item",nav_btn:"nav-btn",panel:"panel"},ATTRIBUTES={data_panel_id:"data-panel-id",view_state:"view-state"},IDS={commodity_panel:"Commodities",system_panel:"Systems",location_panel:"Locations"},CONTROLS={CE:null,SYSE:null,LOCE:null,C_BTN:null,S_BTN:null,L_BTN:null,output:null,SE:null,BTNS:null,PANELS:null,BACK:null,LIST_ITEMS:{}},CommodityChart={eHead:null,iHead:null,createHeaders:function(){this.eHead=document.createElement("li"),this.iHead=document.createElement("li"),this.eHead.innerHTML="Exporting",this.iHead.innerHTML="Importing"},addLocations:function(list,system){let h=this.createLI(system);for(let l of(h.classList.add(CSS_CLASSES.systemname),h.classList.add(CSS_CLASSES.list_item),h.setAttribute(ATTRIBUTES.data_panel_id,IDS.system_panel),list.appendChild(h),Systems[system].locations)){document.createElement("div");let li=this.createLI(l,CSS_CLASSES.sublist);li.setAttribute(ATTRIBUTES.data_panel_id,IDS.location_panel),li.classList.add(CSS_CLASSES.list_item),list.appendChild(li)}},createLI:function(inner,css){let li=document.createElement("li");return css&&li.classList.add(css),li.innerHTML=inner,li},renderList:function(list_type,item_name){switch(CONTROLS.SE.innerHTML=item_name,list_type){case IDS.commodity_panel:this.printAll(CONTROLS.output,item_name);break;case IDS.system_panel:this.printLocal(CONTROLS.output,Systems[item_name],CSS_CLASSES.commoditylist);break;case IDS.location_panel:this.printLocal(CONTROLS.output,Locations[item_name],CSS_CLASSES.commoditylist)}},printAll:function(targetEle,commodity){this.eHead||this.createHeaders();let exportingSysList=document.createElement("ul");exportingSysList.classList.add(CSS_CLASSES.commoditylist),exportingSysList.appendChild(this.eHead);let importingSysList=document.createElement("ul");importingSysList.appendChild(this.iHead),importingSysList.classList.add(CSS_CLASSES.commoditylist);let sortedESystems=Commodities[commodity].exportingSystems,sortedISystems=Commodities[commodity].importingSystems;for(let s of sortedESystems)this.addLocations(exportingSysList,s);for(let s of sortedISystems)this.addLocations(importingSysList,s);targetEle.innerHTML="",targetEle.appendChild(importingSysList),targetEle.appendChild(exportingSysList)},printLocal:function(targetEle,system,cssClass){this.eHead||this.createHeaders();let exports=document.createElement("ul");exports.appendChild(this.eHead),exports.classList.add(cssClass);let imports=document.createElement("ul");for(let c of(imports.classList.add(cssClass),imports.appendChild(this.iHead),system.exports)){let l=this.createLI(c,CSS_CLASSES.commodity);l.setAttribute(ATTRIBUTES.data_panel_id,IDS.commodity_panel),l.classList.add(CSS_CLASSES.list_item),exports.appendChild(l)}for(let c of system.imports){let l=this.createLI(c,CSS_CLASSES.commodity);l.setAttribute(ATTRIBUTES.data_panel_id,IDS.commodity_panel),l.classList.add(CSS_CLASSES.list_item),imports.appendChild(l)}targetEle.innerHTML="",targetEle.appendChild(imports),targetEle.appendChild(exports)}},GRID={cell_handler:function(evt){let cell,locations=(cell=evt.target.hasAttribute("data-locations")?evt.target:evt.target.parentNode).getAttribute("data-locations");if(locations&&void 0!==locations){let commodity=cell.getAttribute("data-commodity"),system=cell.getAttribute("data-system");locations=locations.split("_");let c_locations=[];for(let l of locations)-1!=Locations[l].imports.indexOf(commodity)&&c_locations.splice(0,0,'<span class="import-mark-inline">&nbsp;'+l+"</span>"),-1!=Locations[l].exports.indexOf(commodity)&&c_locations.push('<span class="export-mark-inline">&nbsp;'+l+"</span>");let system_name="<div>"+system+" -- "+commodity+"</div>";CONTROLS.CELL_INFO.innerHTML=system_name+c_locations.join(" -- ")}},buildTopRow:function(grid,systems){let r=document.createElement("tr"),d=document.createElement("td");for(let s of(r.appendChild(d),systems)){let d=document.createElement("td");d.setAttribute("commodity-name",s),d.innerHTML=s,r.appendChild(d)}grid.appendChild(r)},buildColumns:function(grid,columns,commodities,systems){let c_len=columns.length;for(let c of commodities){let r=document.createElement("tr");for(let i=0;i<c_len;i++){let s=columns[i],d=document.createElement("td");if(i>0){let s_name=s.innerHTML,exportMark=null,importMark=null;-1!=systems[s_name].imports.indexOf(c)&&(importMark=document.createElement("span")).classList.add("import-mark"),-1!=systems[s_name].exports.indexOf(c)&&(exportMark=document.createElement("span")).classList.add("export-mark"),importMark&&d.appendChild(importMark),exportMark&&d.appendChild(exportMark);let bTxt=document.createElement("span");bTxt.classList.add("behind-text"),bTxt.innerHTML=s_name,d.appendChild(bTxt);let locations=systems[s_name].locations.join("_");d.setAttribute("data-locations",locations),d.setAttribute("data-commodity",c),d.setAttribute("data-system",s_name)}else d.innerHTML=c;r.appendChild(d)}grid.appendChild(r)}}};function generateBtn(value){let b=document.createElement("button");return b.innerHTML=value,b.classList.add("decorated-btn"),b}function click_handler(evt){if(void 0===evt.target.name&&void 0===evt.link&&evt.currentTarget!=CONTROLS.output&&evt.currentTarget!=CONTROLS.BACK)return void evt.preventDefault();if(evt.currentTarget==CONTROLS.output&&!evt.target.classList.contains("list-item"))return void evt.preventDefault();let panel_id,item_name=null,isNavBtn=evt.target.classList.contains(CSS_CLASSES.nav_btn);for(let p of(panel_id=evt.target.getAttribute(ATTRIBUTES.data_panel_id),evt.target==CONTROLS.BACK?(panel_id=(current_view=views.pop()).panel,item_name=current_view.item):isNavBtn||(views.push(current_view),item_name=evt.target.innerHTML,current_view={panel:panel_id,item:item_name}),CONTROLS.BTNS))p.classList.remove(CSS_CLASSES.highlight);switch(panel_id){case IDS.system_panel:CONTROLS.S_BTN.classList.add(CSS_CLASSES.highlight);break;case IDS.location_panel:CONTROLS.L_BTN.classList.add(CSS_CLASSES.highlight);break;case IDS.commodity_panel:CONTROLS.C_BTN.classList.add(CSS_CLASSES.highlight)}for(let p of CONTROLS.PANELS)p.classList.add("hide");document.getElementById(panel_id).classList.remove("hide"),isNavBtn||(CONTROLS.BACK.style.visibility=views.length>1?"visible":"hidden",highlighted.classList.remove(CSS_CLASSES.highlight),highlighted=CONTROLS.listItems[item_name],CONTROLS.listItems[item_name].classList.add(CSS_CLASSES.highlight),CommodityChart.renderList(panel_id,item_name))}window.onload=function(){CONTROLS.CE=document.getElementById("Commodities"),CONTROLS.SYSE=document.getElementById("Systems"),CONTROLS.LOCE=document.getElementById("Locations"),CONTROLS.output=document.getElementById("output"),CONTROLS.SE=document.getElementById("Selected"),CONTROLS.C_BTN=document.getElementById("Commodities-btn"),CONTROLS.S_BTN=document.getElementById("Systems-btn"),CONTROLS.L_BTN=document.getElementById("Locations-btn"),CONTROLS.LEFT_CONTAINER=document.getElementById("Left"),CONTROLS.RIGHT_CONTAINER=document.getElementById("Right"),CONTROLS.BTNS=[CONTROLS.C_BTN,CONTROLS.S_BTN,CONTROLS.L_BTN],CONTROLS.PANELS=[CONTROLS.CE,CONTROLS.SYSE,CONTROLS.LOCE],CONTROLS.BACK=document.getElementById("Back"),CONTROLS.LIST_VIEW_BTN=document.getElementById("ListViewBtn"),CONTROLS.GRID_VIEW_BTN=document.getElementById("GridViewBtn"),CONTROLS.LIST_VIEW=document.getElementById("ListView"),CONTROLS.GRID_VIEW=document.getElementById("GridView"),CONTROLS.GRID_TABLE=document.getElementById("grid-table"),CONTROLS.listItems={},CONTROLS.CELL_INFO=document.getElementById("cell-info"),CONTROLS.GRID_HEADER=document.getElementById("grid-header"),CONTROLS.GRID_THEAD=document.getElementById("grid-thead"),CONTROLS.LIST_VIEW_BTN.addEventListener("click",function(evt){CONTROLS.LIST_VIEW.style.display="block",CONTROLS.GRID_VIEW.style.display="none",CONTROLS.LIST_VIEW_BTN.classList.toggle("highlight"),CONTROLS.GRID_VIEW_BTN.classList.toggle("highlight")}),CONTROLS.GRID_VIEW_BTN.addEventListener("click",function(){CONTROLS.LIST_VIEW.style.display="none",CONTROLS.GRID_VIEW.style.display="block",CONTROLS.LIST_VIEW_BTN.classList.toggle("highlight"),CONTROLS.GRID_VIEW_BTN.classList.toggle("highlight")}),GRID.buildTopRow(CONTROLS.GRID_TABLE,SystemList);let columns=CONTROLS.GRID_TABLE.children[0].children;for(let c of(GRID.buildColumns(CONTROLS.GRID_TABLE,columns,CommodityList,Systems),CONTROLS.GRID_TABLE.addEventListener("click",GRID.cell_handler),CommodityList)){if(void 0==c)continue;let b=generateBtn(c);CONTROLS.listItems[c]=b,b.classList.add(CSS_CLASSES.commodity),b.classList.add(CSS_CLASSES.panel_item),b.setAttribute(ATTRIBUTES.data_panel_id,IDS.commodity_panel),CONTROLS.CE.appendChild(b)}for(let s of SystemList){if(""==s)continue;let b=generateBtn(s);CONTROLS.listItems[s]=b,b.classList.add(CSS_CLASSES.commodity),b.classList.add(CSS_CLASSES.panel_item),b.setAttribute(ATTRIBUTES.data_panel_id,IDS.system_panel),CONTROLS.SYSE.appendChild(b)}for(let l of LocationList){if(void 0==l)continue;let lb=generateBtn(l);CONTROLS.listItems[l]=lb,lb.classList.add(CSS_CLASSES.commodity),lb.classList.add(CSS_CLASSES.panel_item),lb.setAttribute(ATTRIBUTES.data_panel_id,IDS.location_panel),CONTROLS.LOCE.appendChild(lb)}CONTROLS.output.addEventListener("click",click_handler),CONTROLS.BACK.addEventListener("click",click_handler);let navBtns=document.body.querySelectorAll("."+CSS_CLASSES.nav_btn);for(let b in navBtns)navBtns.item(b).addEventListener("click",click_handler);let panels=document.body.querySelectorAll("."+CSS_CLASSES.panel);for(let b in panels)panels.item(b).addEventListener("click",click_handler);let default_commodity=document.body.querySelectorAll("#Commodities .decorated-btn")[0],default_selection=document.getElementById("Commodities");highlighted=default_commodity,current_view={panel:IDS.commodity_panel,item:default_commodity.innerHTML};let defaultEvent={};defaultEvent.target=default_commodity,defaultEvent.currentTarget=default_selection,defaultEvent.target.name="default",click_handler(defaultEvent)};</script>
+</head>
+<body>
+<h1>ASCIISEC Trade Guide <button class="decorated-btn highlight" id="ListViewBtn">List</button> <button class="decorated-btn" id="GridViewBtn">Grid</button></h1>
+<div id="ListView">
+    <div id="Left">
+        <div id="Navigation">
+            <button data-panel-id="Commodities" id="Commodities-btn" class="nav-btn highlight">Commodities</button>
+            <button data-panel-id="Systems" id="Systems-btn"  class="nav-btn">Systems</button>
+            <button data-panel-id="Locations" id="Locations-btn"  class="nav-btn">Locations</button>
+        </div>
+        <div id="Commodities" class="panel"></div>
+        <div id="Systems" class="panel hide"></div>
+        <div id="Locations" class="panel hide"></div>
+    </div>
+    <div id="Right">
+        <div class="border">
+            <span id="Back">Back</span>
+            <h4 id="Selected"></h4>
+            <div id="output"></div>
+        </div>
+    </div>
+</div>
+<div id="GridView">
+    <div id="cell-info-wrapper">
+        <div id="cell-info">Click a cell.</div>
+    </div>
+    <div id="grid-header" style="display:flex; flex-flow:row">
+        <span id="import-legend" class="legend"><span>&#9698;</span> = import</span>
+        <span id="export-legend" class="legend"><span>&#9701;</span> = export</span>
+    </div>
+    <table id="grid">
+        <thead id="grid-thead"></thead>
+        <tbody id="grid-table"></tbody>
+    </table>
+</div>
+</body>
+</html>
