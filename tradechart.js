@@ -1,6 +1,6 @@
-let highlighted = null;
-let views = [];
-let current_view = null;
+var highlighted = null;
+var views = [];
+var current_view = null;
 
 const CSS_CLASSES = {
     "systemname": "system-name",
