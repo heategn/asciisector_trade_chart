@@ -6,7 +6,7 @@
     <script type="text/javascript">JS_DATA JS_MAIN</script>
 </head>
 <body>
-<h1>ASCIISEC Trade Guide <button class="decorated-btn highlight" id="ListViewBtn">List</button> <button class="decorated-btn" id="GridViewBtn">Grid</button></h1>
+<h1>Ascii Sector Trade Chart <button class="decorated-btn highlight" id="ListViewBtn">List</button> <button class="decorated-btn" id="GridViewBtn">Grid</button></h1>
 <div id="ListView">
     <div id="Left">
         <div id="Navigation">
