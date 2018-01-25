@@ -5,7 +5,9 @@ I was motivated to create this trading chart to reduce the time spent figuring o
 
 There are two viewing modes:
 
+## List
 ![List mode](https://github.com/heategn/asciisector_trade_chart/blob/master/screenshots/asciisector_list.png "List Mode")
+## Grid
 ![Grid mode](https://github.com/heategn/asciisector_trade_chart/blob/master/screenshots/asciisector_grid.png "Grid Mode")
 
 *   List - A compact viewing mode that lets you quickly discover which system and locations are importing/exporting a specific good.
@@ -27,4 +29,4 @@ I used some local scripting to translate the data from the wiki into the JSON fo
 
 I used [uglify](https://github.com/mishoo/UglifyJS2/tree/harmony) to minimize the css/javascript, and m4 (Linux macro processor) to combine into tradechart_standalone.m.
 
-    m4 -DCSS="$(cat tradechart.css)" -DJS_DATA="$(cat tradechart_data.min.js)" -DJS_MAIN="$(cat tradechart.min.js)" tradechart_standalone.m &gt; tradechart_standalone.html
+`m4 -DCSS="$(cat tradechart.css)" -DJS_DATA="$(cat tradechart_data.min.js)" -DJS_MAIN="$(cat tradechart.min.js)" tradechart_standalone.m > tradechart_standalone.html`
